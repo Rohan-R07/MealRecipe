@@ -130,13 +130,15 @@ fun CategoryCard(thumb: String, context: Context, text: String,discription: Stri
         )
 
         Text(
-            text = text,
+            text = discription,
             color = CDiscColor,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
                 .padding(top = 8.dp),
             fontSize = 17.sp,
-            fontFamily = FontFamily(Font(R.font.plus_jakarta_sans))
+            fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis
 
         )
 
