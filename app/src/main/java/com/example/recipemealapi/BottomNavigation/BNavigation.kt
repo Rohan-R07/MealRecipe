@@ -1,5 +1,6 @@
 package com.example.recipemealapi.BottomNavigation
 
+import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,10 +15,10 @@ import com.example.recipemealapi.Screens.BottomNavScreens.CatalogScreen
 import com.example.recipemealapi.Screens.BottomNavScreens.ProfileScreen
 import com.example.recipemealapi.Screens.BottomNavScreens.SavedScreen
 import com.example.recipemealapi.Screens.BottomNavScreens.SearchScreen
-import com.example.recipemealapi.ui.theme.CategoryScreen
+import com.example.recipemealapi.ViewModel.MealViewModel
 
 @Composable
-fun BNavigation(backStack: NavBackStack,innerPadding: PaddingValues) {
+fun BNavigation(backStack: NavBackStack,innerPadding: PaddingValues,viewModel: MealViewModel,context:Context) {
 
     NavDisplay(
         backStack = backStack,
@@ -26,7 +27,7 @@ fun BNavigation(backStack: NavBackStack,innerPadding: PaddingValues) {
         },
         entryProvider = entryProvider {
 
-            entry(BottomNavRoutes.CatagoriesScreen) { CatalogScreen() }
+            entry(BottomNavRoutes.CatagoriesScreen) { CatalogScreen(viewModel,backStack,context) }
             entry(BottomNavRoutes.SearchScreen) { SearchScreen() }
             entry(BottomNavRoutes.Saved) { SavedScreen() }
             entry(BottomNavRoutes.Profile) { ProfileScreen() }
