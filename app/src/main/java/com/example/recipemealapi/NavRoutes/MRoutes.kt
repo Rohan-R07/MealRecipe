@@ -10,5 +10,8 @@ sealed class MRoutes() : NavKey{
     data object MainScreen: MRoutes()
 
     @Serializable
-    data object SecondScreen: MRoutes()
+    data class CategoryDetailsScreen(
+        val dishName: String,
+        val disc: String,
+    ): MRoutes()
 }
