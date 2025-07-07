@@ -10,5 +10,5 @@ sealed class MRoutes() : NavKey{
     data object MainScreen: MRoutes()
 
     @Serializable
-    data object SecondScreen: MRoutes()
+    data object CategoryDetailsScreen: MRoutes()
 }

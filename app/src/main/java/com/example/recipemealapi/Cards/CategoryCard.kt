@@ -63,7 +63,7 @@ import kotlinx.coroutines.delay
 
 @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
 @Composable
-fun CategoryCard(thumb: String, context: Context, text: String,discription: String) {
+fun CategoryCard(thumb: String, context: Context, text: String,discription: String,onClick : () -> Unit) {
 
 
     Card (
@@ -77,6 +77,9 @@ fun CategoryCard(thumb: String, context: Context, text: String,discription: Stri
             disabledContentColor = Gray,
             disabledContainerColor = Gray
         ),
+        onClick = {
+            onClick()
+        }
 
         ) {
         Box(

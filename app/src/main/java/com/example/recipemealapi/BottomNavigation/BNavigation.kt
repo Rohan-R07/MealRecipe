@@ -18,16 +18,16 @@ import com.example.recipemealapi.Screens.BottomNavScreens.SearchScreen
 import com.example.recipemealapi.ViewModel.MealViewModel
 
 @Composable
-fun BNavigation(backStack: NavBackStack,innerPadding: PaddingValues,viewModel: MealViewModel,context:Context) {
+fun BNavigation(bottomBackStack: NavBackStack, innerPadding: PaddingValues, viewModel: MealViewModel, context:Context, mainBackStack: NavBackStack) {
 
     NavDisplay(
-        backStack = backStack,
+        backStack = bottomBackStack,
         onBack = {
-            backStack.lastOrNull()
+            bottomBackStack.lastOrNull()
         },
         entryProvider = entryProvider {
 
-            entry(BottomNavRoutes.CatagoriesScreen) { CatalogScreen(viewModel,backStack,context) }
+            entry(BottomNavRoutes.CatagoriesScreen) { CatalogScreen(viewModel,bottomBackStack,context, mainBackStack = mainBackStack) }
             entry(BottomNavRoutes.SearchScreen) { SearchScreen() }
             entry(BottomNavRoutes.Saved) { SavedScreen() }
             entry(BottomNavRoutes.Profile) { ProfileScreen() }

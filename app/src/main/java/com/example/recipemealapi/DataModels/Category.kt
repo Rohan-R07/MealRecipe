@@ -2,7 +2,8 @@ package com.example.recipemealapi.DataModels
 
 
 data class Category(
-    val categories: List<CategoryResopnce>
+    val categories: List<CategoryResopnce>,
+
 )
 
 
@@ -12,3 +13,4 @@ data class CategoryResopnce(
     val strCategoryDescription: String,
     val strCategoryThumb: String
 )
+
