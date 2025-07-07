@@ -17,8 +17,7 @@ fun MNavigation(backStack: NavBackStack, viewModel: MealViewModel, context: Cont
     NavDisplay(
         backStack = backStack,
         onBack = {
-//            backStack.removeAll{true}
-//            backStack.removeLastOrNull()
+            backStack.removeLastOrNull()
         },
         entryProvider = entryProvider {
 
@@ -26,10 +25,9 @@ fun MNavigation(backStack: NavBackStack, viewModel: MealViewModel, context: Cont
                 MainScreen(backStack, viewModel, context = context)
             }
 
-            entry(MRoutes.CategoryDetailsScreen) {
-                CategoryDetailsScreen(viewModel)
+            entry<MRoutes.CategoryDetailsScreen> { key ->
+                CategoryDetailsScreen(viewModel, topBarTitle = key.dishName, discroption = key.disc, mainBackStack =backStack )
             }
-
 
         }
     )

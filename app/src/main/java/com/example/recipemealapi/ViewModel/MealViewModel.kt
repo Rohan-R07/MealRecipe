@@ -1,17 +1,13 @@
 package com.example.recipemealapi.ViewModel
 
-import android.app.appsearch.GetByDocumentIdRequest
 import retrofit2.HttpException
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.recipemealapi.DataModels.Category
 import com.example.recipemealapi.DataModels.CategoryResopnce
 import com.example.recipemealapi.DataModels.Meal
 import com.example.recipemealapi.Retrofit.RetroInstance
-import com.example.recipemealapi.Utils.isNetWorkAvaiable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,36 +21,38 @@ class MealViewModel : ViewModel() {
     val isError = MutableLiveData<String>()
     val errorSate = isError
 
-    val isLoading = MutableStateFlow<Boolean>(true)
-    val isLsoading: StateFlow<Boolean> = isLoading
+    val _isLoadingCatagoryS = MutableStateFlow<Boolean>(true)
+    val isLoadingCategoryS: StateFlow<Boolean> = _isLoadingCatagoryS
 
 
     val _allMeals = MutableStateFlow<List<Meal>>(emptyList())
     val allMeals = _allMeals.asStateFlow()
 
+    val _isLoadingCatDetailsS = MutableStateFlow<Boolean>(false)
+    val isLoadingCatDetailsS: StateFlow<Boolean> = _isLoadingCatDetailsS
+
     init {
 
         getCategory()
-        getAllMeals("Chicken")
     }
 
     fun getCategory() {
 
         try {
-            isLoading.value = true
+            _isLoadingCatagoryS.value = !_isLoadingCatagoryS.value
             viewModelScope.launch {
                 val categoryData = RetroInstance.api.catagorieslist()
                 if (categoryData.isSuccessful) {
                     val categoryList = categoryData.body()?.categories ?: emptyList()
-                    isLoading.value = false
+                    _isLoadingCatagoryS.value = !_isLoadingCatagoryS.value
                     _catgory.value = categoryList
                 } else {
                     Log.d("Error", "Unsucessfull")
-                    isLoading.value = true
+//                    _isLoadingCatagoryS.value = true
                 }
             }
         } catch (e: Exception) {
-            isLoading.value  = true
+            _isLoadingCatagoryS.value = !_isLoadingCatagoryS.value
             e.printStackTrace()
         } catch (e: HttpException) {
             e.printStackTrace()
@@ -67,16 +65,21 @@ class MealViewModel : ViewModel() {
 
     fun getAllMeals(mealName: String) {
         try {
+            _isLoadingCatagoryS.value = true
             viewModelScope.launch {
                 val getAllMeal = RetroInstance.api.mealsList(mealName)
                 if (getAllMeal.isSuccessful) {
                     val allMealList = getAllMeal.body()?.meals ?: emptyList()
                     _allMeals.value = allMealList
+                    _isLoadingCatDetailsS.value = false
                 } else {
+                    _isLoadingCatDetailsS.value = true
+
                     Log.d("Error", "Unsucessfull")
                 }
             }
         } catch (e: Exception) {
+            _isLoadingCatDetailsS.value = true
             e.printStackTrace()
         } catch (e: HttpException) {
             e.printStackTrace()

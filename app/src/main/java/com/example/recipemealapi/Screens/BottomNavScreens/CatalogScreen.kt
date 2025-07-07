@@ -1,6 +1,7 @@
 package com.example.recipemealapi.Screens.BottomNavScreens
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,7 +49,7 @@ import com.example.recipemealapi.ui.theme.TopAppBarTitleColor
 fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, context: Context,mainBackStack: NavBackStack) {
     val categoryLists = viewModel.category.collectAsState()
 
-    val isLoadings = viewModel.isLsoading.collectAsState().value
+    val isLoadings = viewModel.isLoadingCategoryS.collectAsState().value
 
 
     val gridState = rememberLazyGridState()
@@ -74,7 +76,8 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                 actions = {
                     IconButton(
                         onClick = {
-                            mainBackStack.add(MRoutes.CategoryDetailsScreen)
+                            // YET TO ADD SEARCH SCREEN
+
                         }
                     ) {
                         Icon(
@@ -92,7 +95,6 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
     ) { innerPadding ->
         Column(
             modifier = Modifier
-
                 .padding(innerPadding)
         ) {
             Spacer(
@@ -111,14 +113,10 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                     .padding(start = 20.dp),
                 fontWeight = FontWeight.ExtraBold
             )
-            Spacer(
-                Modifier
-//                    .padding(innerPadding)
-                    .padding(12.dp)
-            )
-            if (isLoadings) {
+
+            if (!isLoadings) {
                 LazyVerticalGrid(
-//                contentPadding = innerPadding,
+                contentPadding = innerPadding,
                     modifier = Modifier
                         .padding(horizontal = 15.dp)
                         .fillMaxSize(),
@@ -146,9 +144,17 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                         )
                     }
                 }
+                }else{
 
-            } else {
+                Log.d("Boo",isLoadings.toString())
+//
 
+//            } else {
+                Spacer(
+                    Modifier
+//                    .padding(innerPadding)
+                        .padding(12.dp)
+                )
                 LazyVerticalGrid(
 //                contentPadding = innerPadding,
                     modifier = Modifier
@@ -168,6 +174,7 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                             text = items.strCategory,
                             discription = items.strCategoryDescription
                         ){
+                            mainBackStack.add(MRoutes.CategoryDetailsScreen(items.strCategory,items.strCategoryDescription))
                             Toast.makeText(context,items.strCategory, Toast.LENGTH_SHORT).show()
                         }
                     }

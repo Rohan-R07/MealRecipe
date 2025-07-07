@@ -23,3 +23,4 @@ val CTextColor = Color(0xFF1A0F12)
 val CDiscColor = Color(0xFF8C5C5C)
 
 val CBottomIcon = Color(0xFF994D52)
+val ViewRecipeColor = Color(0xFFE82630)
