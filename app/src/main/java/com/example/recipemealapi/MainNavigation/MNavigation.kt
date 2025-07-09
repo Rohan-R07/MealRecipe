@@ -31,10 +31,11 @@ fun MNavigation(backStack: NavBackStack, viewModel: MealViewModel, context: Cont
             }
 
             entry<MRoutes.FoodDetailsScreen> { key ->
-                FoodDetailsScreen(viewModel)
+                FoodDetailsScreen(viewModel,key.mealId)
             }
 
         }
+
     )
 
 }

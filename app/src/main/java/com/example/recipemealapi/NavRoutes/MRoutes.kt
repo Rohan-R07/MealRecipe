@@ -10,7 +10,9 @@ sealed class MRoutes() : NavKey{
     data object MainScreen: MRoutes()
 
     @Serializable
-    data object FoodDetailsScreen : MRoutes()
+    data class FoodDetailsScreen(
+        val mealId: Int
+    ) : MRoutes()
 
     @Serializable
     data class CategoryDetailsScreen(

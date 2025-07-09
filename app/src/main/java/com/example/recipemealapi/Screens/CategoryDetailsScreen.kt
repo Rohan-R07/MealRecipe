@@ -148,6 +148,11 @@ fun CategoryDetailsScreen(
                             thumb = details.strMealThumb
                         ) {
                                 // TODO Detailed View of the corresponding dish
+                            mainBackStack.add(
+                                MRoutes.FoodDetailsScreen(
+                                    details.idMeal.toInt()
+                                )
+                            )
 
                         }
                     }
