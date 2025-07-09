@@ -1,6 +1,7 @@
 package com.example.recipemealapi.Retrofit
 
 import com.example.recipemealapi.DataModels.Category
+import com.example.recipemealapi.DataModels.FoodDetails
 import com.example.recipemealapi.DataModels.Meal
 import com.example.recipemealapi.DataModels.Meals
 import retrofit2.Response
@@ -13,10 +14,16 @@ interface ApiService {
     @GET("categories.php")
     suspend fun catagorieslist(): retrofit2.Response<Category>
 
-    //    @GET("/search.php?s={name}")
-//    suspend fun mealsList(@Path) : Response<Meals>
+
     @GET("filter.php")
     suspend fun mealsList(
         @Query("c") name: String
     ): Response<Meals>
+
+//    https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
+    @GET("lookup.php")
+    suspend fun PerDish(
+        @Query("i") MealId : Int
+    ): Response<FoodDetails>
+
 }

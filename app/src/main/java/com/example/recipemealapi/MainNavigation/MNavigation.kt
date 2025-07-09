@@ -9,6 +9,7 @@ import androidx.navigation3.ui.NavDisplay
 import com.example.recipemealapi.Screens.MainScreen
 import com.example.recipemealapi.NavRoutes.MRoutes
 import com.example.recipemealapi.Screens.CategoryDetailsScreen
+import com.example.recipemealapi.Screens.FoodDetailsScreen
 import com.example.recipemealapi.ViewModel.MealViewModel
 
 @Composable
@@ -29,7 +30,12 @@ fun MNavigation(backStack: NavBackStack, viewModel: MealViewModel, context: Cont
                 CategoryDetailsScreen(viewModel, topBarTitle = key.dishName, discroption = key.disc, mainBackStack =backStack )
             }
 
+            entry<MRoutes.FoodDetailsScreen> { key ->
+                FoodDetailsScreen(viewModel,key.mealId)
+            }
+
         }
+
     )
 
 }

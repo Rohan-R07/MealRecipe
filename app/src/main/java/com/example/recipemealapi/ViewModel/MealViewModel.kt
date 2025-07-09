@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipemealapi.DataModels.CategoryResopnce
 import com.example.recipemealapi.DataModels.Meal
+import com.example.recipemealapi.DataModels.PerMeals
 import com.example.recipemealapi.Retrofit.RetroInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +31,9 @@ class MealViewModel : ViewModel() {
 
     val _isLoadingCatDetailsS = MutableStateFlow<Boolean>(false)
     val isLoadingCatDetailsS: StateFlow<Boolean> = _isLoadingCatDetailsS
-
+    
+    val _perDishDetails = MutableStateFlow<PerMeals?>(null)
+    val perDishDetails = _perDishDetails
     init {
 
         getCategory()
@@ -85,6 +88,16 @@ class MealViewModel : ViewModel() {
             e.printStackTrace()
             errorSate.value = "is in error"
             Log.d("Erro", "It is an error getting data")
+        }
+    }
+    
+    fun getPerDetails(mealId: Int){
+        viewModelScope.launch { 
+            val result = RetroInstance.api.PerDish(mealId)
+            if (result.isSuccessful){
+                perDishDetails.value = result.body()?.meals?.firstOrNull()
+                
+            }
         }
     }
 
