@@ -150,7 +150,9 @@ fun CategoryDetailsScreen(
                                 // TODO Detailed View of the corresponding dish
                             mainBackStack.add(
                                 MRoutes.FoodDetailsScreen(
-                                    details.idMeal.toInt()
+                                    details.idMeal.toInt(),
+                                    details.strMeal.toString(),
+                                    discroption
                                 )
                             )
 
