@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipemealapi.DataModels.CategoryResopnce
+import com.example.recipemealapi.DataModels.DishItem
 import com.example.recipemealapi.DataModels.Meal
 import com.example.recipemealapi.DataModels.PerMeals
+import com.example.recipemealapi.DataModels.SearchingDIsh
 import com.example.recipemealapi.Retrofit.RetroInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,6 +36,11 @@ class MealViewModel : ViewModel() {
     
     val _perDishDetails = MutableStateFlow<PerMeals?>(null)
     val perDishDetails = _perDishDetails
+
+    val _searchDishUsingWord = MutableStateFlow<DishItem?>(null)
+    val searchDishUsingWord = _searchDishUsingWord
+
+
     init {
 
         getCategory()
@@ -98,6 +105,19 @@ class MealViewModel : ViewModel() {
                 perDishDetails.value = result.body()?.meals?.firstOrNull()
                 
             }
+        }
+    }
+
+
+
+    fun searchDishUsingWord(dishName: String){
+        viewModelScope.launch {
+            val results = RetroInstance.api.SearchDishWord(dishName)
+
+            if (results.isSuccessful){
+                searchDishUsingWord.value = results.body()?.meals?.firstOrNull()
+            }
+
         }
     }
 
