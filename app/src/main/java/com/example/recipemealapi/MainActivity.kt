@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
             RecipeMealAPITheme {
 
-                val backStack = rememberNavBackStack<MRoutes>(MRoutes.FoodDetailsScreen(52772))
+                val backStack = rememberNavBackStack<MRoutes>(MRoutes.MainScreen)
                 val viewModel = viewModels<MealViewModel>()
 
                 val context = LocalContext.current
