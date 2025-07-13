@@ -37,7 +37,7 @@ class MealViewModel : ViewModel() {
     val _perDishDetails = MutableStateFlow<PerMeals?>(null)
     val perDishDetails = _perDishDetails
 
-    val _searchDishUsingWord = MutableStateFlow<DishItem?>(null)
+    val _searchDishUsingWord = MutableStateFlow< List<DishItem?>>(emptyList())
     val searchDishUsingWord = _searchDishUsingWord
 
 
@@ -115,7 +115,8 @@ class MealViewModel : ViewModel() {
             val results = RetroInstance.api.SearchDishWord(dishName)
 
             if (results.isSuccessful){
-                searchDishUsingWord.value = results.body()?.meals?.firstOrNull()
+                _searchDishUsingWord.value = results.body()?.meals ?: emptyList()
+//                        categoryData.body()?.categories ?: emptyList()
             }
 
         }

@@ -66,7 +66,7 @@ import com.example.recipemealapi.ui.theme.TopAppBarTitleColor
 @Composable
 fun FoodDetailsScreen(viewModels: MealViewModel, mealId: Int,mainBackStack: NavBackStack,mealStr: String,mealDis:String) {
 
-    val viewModels = viewModel<MealViewModel>()
+//    val viewModels = viewModel<MealViewModel>()
     viewModels.getPerDetails(mealId)
     val items = viewModels.perDishDetails.collectAsState().value
 

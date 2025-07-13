@@ -28,7 +28,7 @@ fun BNavigation(bottomBackStack: NavBackStack, innerPadding: PaddingValues, view
         entryProvider = entryProvider {
 
             entry(BottomNavRoutes.CatagoriesScreen) { CatalogScreen(viewModel,bottomBackStack,context, mainBackStack = mainBackStack) }
-            entry(BottomNavRoutes.SearchScreen) { SearchScreen() }
+            entry(BottomNavRoutes.SearchScreen) { SearchScreen(viewModel = viewModel) }
             entry(BottomNavRoutes.Saved) { SavedScreen() }
             entry(BottomNavRoutes.Profile) { ProfileScreen() }
 

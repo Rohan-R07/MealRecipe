@@ -27,14 +27,10 @@ interface ApiService {
         @Query("i") MealId: Int
     ): Response<FoodDetails>
 
-    @GET("lookup.php")
+    @GET("search.php")
     suspend fun SearchDishWord(
         @Query("s") mealName: String
     ): Response<SearchingDIsh>
 
 
-//    @GET("lookup.php")
-//    suspend fun SearchDishLetter(
-//        @Query("s") mealName: Int
-//    ): Response<FoodDetails>
 }
