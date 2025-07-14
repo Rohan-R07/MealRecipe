@@ -24,7 +24,7 @@ interface ApiService {
     //    https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
     @GET("lookup.php")
     suspend fun PerDish(
-        @Query("i") MealId: Int
+        @Query("i") MealId: Int?
     ): Response<FoodDetails>
 
     @GET("search.php")

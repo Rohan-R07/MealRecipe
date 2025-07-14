@@ -3,10 +3,13 @@ accompanistSystemuicontroller = "0.33.2-alpha"
 agp = "8.10.1"
 coilCompose = "2.5.0"
 composeShimmer = "1.0.5"
+datastorePreferences = "1.1.7"
+datastore = "1.1.7"
 kotlin = "2.1.20"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 converterGson = "2.9.0"
+lottieCompose = "6.3.0"
 nav3Core = "1.0.0-alpha04"
 lifecycleViewmodelNav3 = "1.0.0-alpha02"
 kotlinSerialization = "2.1.21"
@@ -25,6 +28,8 @@ squareupRetrofit = "2.9.0"
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 compose-shimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version.ref = "composeShimmer" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -41,6 +46,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 squareup-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "squareupRetrofit" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }

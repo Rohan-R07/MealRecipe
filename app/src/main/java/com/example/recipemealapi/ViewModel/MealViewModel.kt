@@ -9,7 +9,6 @@ import com.example.recipemealapi.DataModels.CategoryResopnce
 import com.example.recipemealapi.DataModels.DishItem
 import com.example.recipemealapi.DataModels.Meal
 import com.example.recipemealapi.DataModels.PerMeals
-import com.example.recipemealapi.DataModels.SearchingDIsh
 import com.example.recipemealapi.Retrofit.RetroInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -98,7 +97,7 @@ class MealViewModel : ViewModel() {
         }
     }
     
-    fun getPerDetails(mealId: Int){
+    fun getPerDetails(mealId: Int?){
         viewModelScope.launch { 
             val result = RetroInstance.api.PerDish(mealId)
             if (result.isSuccessful){

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -24,9 +25,9 @@ import com.example.recipemealapi.ui.theme.BottomNavigationBar
 
 
 @Composable
-fun CBotomNavigationBar(bBackStack: NavBackStack) {
+fun CBotomNavigationBar(bBackStack: NavBackStack, navIndex: MutableState<Int>) {
 
-    var indext by remember { mutableIntStateOf(0) }
+//    var indext by remember { mutableIntStateOf(0) }
 
 
     BottomAppBar(
@@ -44,14 +45,13 @@ fun CBotomNavigationBar(bBackStack: NavBackStack) {
         ) {
 
             itemLists.forEachIndexed { index, item ->
-
                 Item(
-                    selelcted = indext == index,
+                    selelcted = navIndex.value == index,
                     name = item.name,
                     icon = item.icon,
                     iconFilled = item.iconFilled,
                     onClick = {
-                        indext = index
+                        navIndex.value = index
                         bBackStack.removeAll { true }
                         bBackStack.add(item.route)
                     }

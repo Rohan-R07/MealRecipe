@@ -1,6 +1,8 @@
 package com.example.recipemealapi.MainNavigation
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.entry
@@ -12,6 +14,7 @@ import com.example.recipemealapi.Screens.CategoryDetailsScreen
 import com.example.recipemealapi.Screens.FoodDetailsScreen
 import com.example.recipemealapi.ViewModel.MealViewModel
 
+@RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 @Composable
 fun MNavigation(backStack: NavBackStack, viewModel: MealViewModel, context: Context) {
 

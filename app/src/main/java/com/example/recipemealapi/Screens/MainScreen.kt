@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation3.runtime.NavBackStack
@@ -21,18 +24,14 @@ import com.example.recipemealapi.ui.theme.CategoryScreen
 fun MainScreen(mainBackStack: NavBackStack, viewModels: MealViewModel,context: Context) {
     val bottomBackStack = rememberNavBackStack<BottomNavRoutes>(BottomNavRoutes.CatagoriesScreen)
     val context = LocalContext.current
-//    SideEffect {
-//        val window = (context as Activity).window
-////        window.statusBarColor = .White.toArgb()  // or any color
-//        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
-//        insetsController.isAppearanceLightStatusBars = true  // true = dark icons
-//    }
+
+    val bottomNavIndext = remember { mutableIntStateOf(0) }
     Scaffold(
         modifier  = Modifier
             .background(CategoryScreen)
             .fillMaxSize(),
         bottomBar = {
-            CBotomNavigationBar(bottomBackStack)
+            CBotomNavigationBar(bottomBackStack,bottomNavIndext)
         },
         containerColor = CategoryScreen
 
@@ -42,7 +41,8 @@ fun MainScreen(mainBackStack: NavBackStack, viewModels: MealViewModel,context: C
             innerPadding = innerPadding,
             context = context,
             viewModel = viewModels,
-            mainBackStack = mainBackStack
+            mainBackStack = mainBackStack,
+            navIndext = bottomNavIndext
 
         )
     }

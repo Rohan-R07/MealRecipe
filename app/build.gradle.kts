@@ -75,7 +75,11 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.compose.shimmer)
 
+    implementation(libs.androidx.datastore.preferences)
+
+    implementation (libs.lottie.compose)
 
 
+    implementation (libs.androidx.datastore)
 
 }
