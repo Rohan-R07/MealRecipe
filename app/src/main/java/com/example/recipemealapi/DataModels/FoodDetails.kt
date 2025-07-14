@@ -12,7 +12,7 @@ data class PerMeals(
     val strCategory: String,
     val strCreativeCommonsConfirmed: Any,
     val strImageSource: Any,
-    val strIngredient1: String,
+    val strIngredient1: String, 
     val strIngredient10: String,
     val strIngredient11: String,
     val strIngredient12: String,

@@ -11,7 +11,7 @@ sealed class MRoutes() : NavKey{
 
     @Serializable
     data class FoodDetailsScreen(
-        val mealId: Int,
+        val mealId: Int?,
         val mealName:String,
         val mealDisc:String,
     ) : MRoutes()

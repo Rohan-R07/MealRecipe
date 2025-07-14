@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation3.runtime.NavBackStack
 import com.example.recipemealapi.Cards.CategoryCard
+import com.example.recipemealapi.NavRoutes.BottomNavRoutes
 import com.example.recipemealapi.NavRoutes.MRoutes
 import com.example.recipemealapi.R
 import com.example.recipemealapi.Utils.ShimmerLoading
@@ -73,22 +74,7 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                     titleContentColor = TopAppBarTitleColor,
                     actionIconContentColor = Gray
                 ),
-                actions = {
-                    IconButton(
-                        onClick = {
-                            // YET TO ADD SEARCH SCREEN
 
-                        }
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.explore_search),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(24.dp),
-                            tint = CSearch
-                        )
-                    }
-                }
             )
         },
         containerColor = CategoryScreen,

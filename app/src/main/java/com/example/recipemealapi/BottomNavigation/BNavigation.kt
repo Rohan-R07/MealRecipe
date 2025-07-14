@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.entry
@@ -18,7 +19,14 @@ import com.example.recipemealapi.Screens.BottomNavScreens.SearchScreen
 import com.example.recipemealapi.ViewModel.MealViewModel
 
 @Composable
-fun BNavigation(bottomBackStack: NavBackStack, innerPadding: PaddingValues, viewModel: MealViewModel, context:Context, mainBackStack: NavBackStack) {
+fun BNavigation(
+    bottomBackStack: NavBackStack,
+    innerPadding: PaddingValues,
+    viewModel: MealViewModel,
+    context: Context,
+    mainBackStack: NavBackStack,
+    navIndext: MutableState<Int>
+) {
 
     NavDisplay(
         backStack = bottomBackStack,
@@ -27,8 +35,22 @@ fun BNavigation(bottomBackStack: NavBackStack, innerPadding: PaddingValues, view
         },
         entryProvider = entryProvider {
 
-            entry(BottomNavRoutes.CatagoriesScreen) { CatalogScreen(viewModel,bottomBackStack,context, mainBackStack = mainBackStack) }
-            entry(BottomNavRoutes.SearchScreen) { SearchScreen() }
+            entry(BottomNavRoutes.CatagoriesScreen) {
+                CatalogScreen(
+                    viewModel,
+                    bottomBackStack,
+                    context,
+                    mainBackStack = mainBackStack
+                )
+            }
+            entry(BottomNavRoutes.SearchScreen) {
+                SearchScreen(
+                    viewModel = viewModel,
+                    context,
+                    mainBackStack,
+                    navIndext
+                )
+            }
             entry(BottomNavRoutes.Saved) { SavedScreen() }
             entry(BottomNavRoutes.Profile) { ProfileScreen() }
 

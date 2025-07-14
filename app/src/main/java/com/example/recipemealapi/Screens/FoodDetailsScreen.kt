@@ -1,8 +1,6 @@
 package com.example.recipemealapi.Screens
 
-import android.hardware.camera2.params.BlackLevelPattern
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -28,14 +25,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.layout.ContentScale
@@ -43,15 +36,12 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavBackStack
 import coil.compose.AsyncImage
-import com.example.recipemealapi.NavRoutes.MRoutes
 import com.example.recipemealapi.R
 import com.example.recipemealapi.Utils.Ingredient
 import com.example.recipemealapi.Utils.Measures
@@ -64,9 +54,14 @@ import com.example.recipemealapi.ui.theme.TopAppBarTitleColor
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FoodDetailsScreen(viewModels: MealViewModel, mealId: Int,mainBackStack: NavBackStack,mealStr: String,mealDis:String) {
+fun FoodDetailsScreen(
+    viewModels: MealViewModel, mealId: Int?,
+    mainBackStack: NavBackStack,
+    mealStr: String,
+    mealDis: String
+) {
 
-    val viewModels = viewModel<MealViewModel>()
+//    val viewModels = viewModel<MealViewModel>()
     viewModels.getPerDetails(mealId)
     val items = viewModels.perDishDetails.collectAsState().value
 
@@ -452,7 +447,7 @@ fun FoodDetailsScreen(viewModels: MealViewModel, mealId: Int,mainBackStack: NavB
                 val sampleText = "Hello world"
                 items?.strSource.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
                     Text(
-                        text = "YouTube Tutorials",
+                        text = "Source For Details",
                         modifier = Modifier
                             .padding(start = 14.dp, top = 10.dp, bottom = 8.dp),
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
@@ -491,8 +486,9 @@ fun FoodDetailsScreen(viewModels: MealViewModel, mealId: Int,mainBackStack: NavB
                             modifier = Modifier
                                 .padding(start = 10.dp,end = 10.dp)
                                 .size(55.dp)
-                                .background(Gray)
+                                .background(Unspecified)
                                 .clip(RoundedCornerShape(30.dp)),
+
 
                             )
 
