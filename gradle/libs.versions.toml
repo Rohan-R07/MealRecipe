@@ -5,9 +5,7 @@ coilCompose = "2.5.0"
 composeShimmer = "1.0.5"
 datastorePreferences = "1.1.7"
 datastore = "1.1.7"
-kotlin = "2.1.20"
-coreKtx = "1.16.0"
-junit = "4.13.2"
+
 converterGson = "2.9.0"
 lottieCompose = "6.3.0"
 nav3Core = "1.0.0-alpha04"
@@ -16,15 +14,21 @@ kotlinSerialization = "2.1.21"
 kotlinxSerializationCore = "1.8.1"
 material3AdaptiveNav3 = "1.0.0-SNAPSHOT"
 
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+
 kotlinxCoroutinesAndroid = "1.8.1"
 
-lifecycleRuntimeKtx = "2.9.1"
-activityCompose = "1.10.1"
-composeBom = "2025.06.01"
 squareupRetrofit = "2.9.0"
 
+
+kotlin = "2.0.21"
+coreKtx = "1.16.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.9.0"
+activityCompose = "1.10.1"
+composeBom = "2025.05.01"
+roomKtx = "2.7.1"
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,7 +60,8 @@ androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecy
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 
 androidx-material3-adaptive-navigation3 = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation3", version.ref = "material3AdaptiveNav3" }
-
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomKtx" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -67,7 +72,7 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version = "1.9.22" }
 
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization"}
 
-
+ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.27" }
 
 
 

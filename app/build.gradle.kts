@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id ("com.google.devtools.ksp")
 
     alias(libs.plugins.jetbrains.kotlin.serialization)
 
@@ -13,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.recipemealapi"
-        minSdk = 24
+        minSdk = 32
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -82,4 +83,10 @@ dependencies {
 
     implementation (libs.androidx.datastore)
 
+
+    val room_version = "2.5.2"
+
+    implementation(libs.androidx.room.ktx)
+    // To use Kotlin annotation processing tool (kapt)
+    ksp(libs.androidx.room.compiler)
 }
