@@ -30,11 +30,11 @@ fun MNavigation(backStack: NavBackStack, viewModel: MealViewModel, context: Cont
             }
 
             entry<MRoutes.CategoryDetailsScreen> { key ->
-                CategoryDetailsScreen(viewModel, topBarTitle = key.dishName, discroption = key.disc, mainBackStack =backStack )
+                CategoryDetailsScreen(viewModel, topBarTitle = key.dishName, discroption = key.disc, mainBackStack =backStack,context )
             }
 
             entry<MRoutes.FoodDetailsScreen> { key ->
-                FoodDetailsScreen(viewModel,key.mealId,backStack,key.mealName,key.mealDisc)
+                FoodDetailsScreen(viewModel,key.mealId,backStack,key.mealName,key.mealDisc,context)
             }
 
         }

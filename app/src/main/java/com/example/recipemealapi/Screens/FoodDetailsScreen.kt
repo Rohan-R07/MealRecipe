@@ -1,5 +1,6 @@
 package com.example.recipemealapi.Screens
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -44,6 +45,7 @@ import androidx.navigation3.runtime.NavBackStack
 import coil.compose.AsyncImage
 import com.example.recipemealapi.R
 import com.example.recipemealapi.Utils.Ingredient
+import com.example.recipemealapi.Utils.InternetObserver
 import com.example.recipemealapi.Utils.Measures
 import com.example.recipemealapi.ViewModel.MealViewModel
 import com.example.recipemealapi.ui.theme.CSearch
@@ -58,11 +60,23 @@ fun FoodDetailsScreen(
     viewModels: MealViewModel, mealId: Int?,
     mainBackStack: NavBackStack,
     mealStr: String,
-    mealDis: String
+    mealDis: String,
+    context: Context
 ) {
 
 //    val viewModels = viewModel<MealViewModel>()
-    viewModels.getPerDetails(mealId)
+    viewModels.getPerDetails(mealId, context)
+    lateinit var internetObserver: InternetObserver
+
+
+    internetObserver = InternetObserver(context) {
+        // ✅ Internet is back: call API here
+
+        viewModels.getPerDetails(mealId, context)
+
+    }
+
+
     val items = viewModels.perDishDetails.collectAsState().value
 
 
@@ -314,7 +328,7 @@ fun FoodDetailsScreen(
                     Row(
                         modifier = Modifier
                             .padding(10.dp)
-                            .clickable{
+                            .clickable {
                                 uriHandler.openUri(it)
                             }
                             .fillMaxWidth()
@@ -327,9 +341,9 @@ fun FoodDetailsScreen(
                         Icon(
                             painter = painterResource(R.drawable.youtube_logo),
                             contentDescription = null,
-                            tint = Unspecified ,
+                            tint = Unspecified,
                             modifier = Modifier
-                                .padding(start = 10.dp,end = 10.dp)
+                                .padding(start = 10.dp, end = 10.dp)
                                 .size(55.dp)
                                 .clip(RoundedCornerShape(30.dp)),
 
@@ -359,7 +373,7 @@ fun FoodDetailsScreen(
                     )
 
                     Text(
-                        text = it   ,
+                        text = it,
                         modifier = Modifier
                             .padding(start = 16.dp, top = 3.dp, bottom = 3.dp),
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
@@ -383,7 +397,7 @@ fun FoodDetailsScreen(
                     )
 
                     Text(
-                        text = it   ,
+                        text = it,
                         modifier = Modifier
                             .padding(start = 16.dp, top = 3.dp, bottom = 3.dp),
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
@@ -408,7 +422,7 @@ fun FoodDetailsScreen(
                     )
 
                     Text(
-                        text = it   ,
+                        text = it,
                         modifier = Modifier
                             .padding(start = 16.dp, top = 3.dp, bottom = 3.dp),
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
@@ -432,7 +446,7 @@ fun FoodDetailsScreen(
                     )
 
                     Text(
-                        text = it   ,
+                        text = it,
                         modifier = Modifier
                             .padding(start = 16.dp, top = 3.dp, bottom = 3.dp),
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
@@ -469,7 +483,7 @@ fun FoodDetailsScreen(
                     Row(
                         modifier = Modifier
                             .padding(10.dp)
-                            .clickable{
+                            .clickable {
                                 uriHandler.openUri(it)
                             }
                             .fillMaxWidth()
@@ -482,9 +496,9 @@ fun FoodDetailsScreen(
                         Icon(
                             painter = painterResource(R.drawable.baseline_source_24),
                             contentDescription = null,
-                            tint = Black ,
+                            tint = Black,
                             modifier = Modifier
-                                .padding(start = 10.dp,end = 10.dp)
+                                .padding(start = 10.dp, end = 10.dp)
                                 .size(55.dp)
                                 .background(Unspecified)
                                 .clip(RoundedCornerShape(30.dp)),

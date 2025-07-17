@@ -1,5 +1,6 @@
 package com.example.recipemealapi.Screens
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,6 +43,7 @@ import androidx.navigation3.runtime.NavBackStack
 import com.example.recipemealapi.Cards.CategoryDetailsCard
 import com.example.recipemealapi.NavRoutes.MRoutes
 import com.example.recipemealapi.R
+import com.example.recipemealapi.Utils.InternetObserver
 import com.example.recipemealapi.Utils.ShimmerLoading
 import com.example.recipemealapi.Utils.TypingText
 import com.example.recipemealapi.ViewModel.MealViewModel
@@ -49,6 +51,7 @@ import com.example.recipemealapi.ui.theme.CSearch
 import com.example.recipemealapi.ui.theme.CTextColor
 import com.example.recipemealapi.ui.theme.CategoryScreen
 import com.example.recipemealapi.ui.theme.TopAppBarTitleColor
+import kotlinx.serialization.Contextual
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,11 +59,20 @@ fun CategoryDetailsScreen(
     viewModel: MealViewModel,
     topBarTitle: String = "Null",
     discroption: String = "Null",
-    mainBackStack: NavBackStack
+    mainBackStack: NavBackStack,
+    context: Context
 ) {
 
 
-    viewModel.getAllMeals(topBarTitle)
+    lateinit var internetObserver: InternetObserver
+
+    viewModel.getAllMeals(topBarTitle, context)
+    internetObserver = InternetObserver(context) {
+        // ✅ Internet is back: call API here
+        viewModel.getAllMeals(topBarTitle, context)
+
+    }
+
 
     val categoryDetaild = viewModel.allMeals.collectAsState(emptyList())
 
@@ -89,7 +101,7 @@ fun CategoryDetailsScreen(
                 navigationIcon = {
                     IconButton(
                         onClick = {
-                            mainBackStack.removeAll{true}
+                            mainBackStack.removeAll { true }
                             mainBackStack.add(MRoutes.MainScreen)
                         },
                         modifier = Modifier
@@ -147,7 +159,7 @@ fun CategoryDetailsScreen(
                             discription = details.idMeal,
                             thumb = details.strMealThumb
                         ) {
-                                // TODO Detailed View of the corresponding dish
+                            // TODO Detailed View of the corresponding dish
                             mainBackStack.add(
                                 MRoutes.FoodDetailsScreen(
                                     details.idMeal.toInt(),

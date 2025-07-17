@@ -124,7 +124,7 @@ fun SearchScreen(viewModel: MealViewModel, context: Context,mainBackStack: NavBa
                 ,
                 perLetterTyped = {
 
-                    viewModel.searchDishUsingWord(value.value)
+                    viewModel.searchDishUsingWord(value.value,context)
 
                 Text(
                     text = "Search Results",

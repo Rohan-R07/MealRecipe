@@ -39,6 +39,7 @@ import com.example.recipemealapi.Cards.CategoryCard
 import com.example.recipemealapi.NavRoutes.BottomNavRoutes
 import com.example.recipemealapi.NavRoutes.MRoutes
 import com.example.recipemealapi.R
+import com.example.recipemealapi.Utils.InternetObserver
 import com.example.recipemealapi.Utils.ShimmerLoading
 import com.example.recipemealapi.ViewModel.MealViewModel
 import com.example.recipemealapi.ui.theme.CSearch
@@ -47,12 +48,23 @@ import com.example.recipemealapi.ui.theme.TopAppBarTitleColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, context: Context,mainBackStack: NavBackStack) {
-    val categoryLists = viewModel.category.collectAsState()
-
+fun CatalogScreen(
+    viewModel: MealViewModel,
+    bottomNavBackStack: NavBackStack,
+    context: Context,
+    mainBackStack: NavBackStack
+) {
     val isLoadings = viewModel.isLoadingCategoryS.collectAsState().value
 
 
+    lateinit var internetObserver: InternetObserver
+
+
+    // ✅ Internet is back: call API here
+    val cateLists = viewModel.category
+
+
+    val categoryLists = cateLists.collectAsState()
     val gridState = rememberLazyGridState()
     Scaffold(
         modifier = Modifier
@@ -75,7 +87,7 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                     actionIconContentColor = Gray
                 ),
 
-            )
+                )
         },
         containerColor = CategoryScreen,
     ) { innerPadding ->
@@ -102,7 +114,7 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
 
             if (!isLoadings) {
                 LazyVerticalGrid(
-                contentPadding = innerPadding,
+                    contentPadding = innerPadding,
                     modifier = Modifier
                         .padding(horizontal = 15.dp)
                         .fillMaxSize(),
@@ -130,9 +142,9 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                         )
                     }
                 }
-                }else{
+            } else {
 
-                Log.d("Boo",isLoadings.toString())
+                Log.d("Boo", isLoadings.toString())
 //
 
 //            } else {
@@ -159,9 +171,14 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                             context = context,
                             text = items.strCategory,
                             discription = items.strCategoryDescription
-                        ){
-                            mainBackStack.add(MRoutes.CategoryDetailsScreen(items.strCategory,items.strCategoryDescription))
-                            Toast.makeText(context,items.strCategory, Toast.LENGTH_SHORT).show()
+                        ) {
+                            mainBackStack.add(
+                                MRoutes.CategoryDetailsScreen(
+                                    items.strCategory,
+                                    items.strCategoryDescription
+                                )
+                            )
+                            Toast.makeText(context, items.strCategory, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
