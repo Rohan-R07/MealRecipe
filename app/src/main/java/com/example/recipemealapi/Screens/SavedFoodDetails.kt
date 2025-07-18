@@ -1,6 +1,5 @@
 package com.example.recipemealapi.Screens
 
-import android.content.Context
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -27,11 +26,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,44 +50,20 @@ import com.example.recipemealapi.RoomDatabase.SaveEntity
 import com.example.recipemealapi.Utils.Ingredient
 import com.example.recipemealapi.Utils.InternetObserver
 import com.example.recipemealapi.Utils.Measures
-import com.example.recipemealapi.ViewModel.MealViewModel
-import com.example.recipemealapi.ViewModel.SavingViewModel
 import com.example.recipemealapi.ui.theme.CSearch
 import com.example.recipemealapi.ui.theme.CategoryScreen
 import com.example.recipemealapi.ui.theme.TopAppBarTitleColor
 
-
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FoodDetailsScreen(
-    viewModels: MealViewModel, mealId: Int?,
-    mainBackStack: NavBackStack,
-    mealStr: String,
-    mealDis: String,
-    context: Context,
-    savingViewModel: SavingViewModel
-) {
+fun SavedFoodDetails(entity: SaveEntity,mainBackStact: NavBackStack) {
 
-//    val viewModels = viewModel<MealViewModel>()
-    viewModels.getPerDetails(mealId, context)
-    lateinit var internetObserver: InternetObserver
-
-
-    internetObserver = InternetObserver(context) {
-        // ✅ Internet is back: call API here
-
-        viewModels.getPerDetails(mealId, context)
-
-    }
 
     val onClickSaved = rememberSaveable {
         mutableStateOf(false)
     }
-    val items = viewModels.perDishDetails.collectAsState().value
-
-//    val savedState = savingViewModel.alreadySavedDishes()
-
+    
     Scaffold(
         modifier = Modifier,
         containerColor = CategoryScreen,
@@ -109,7 +81,7 @@ fun FoodDetailsScreen(
                     IconButton(
                         onClick = {
 //                            mainBackStack.add(MRoutes.CategoryDetailsScreen(mealStr,mealDis))
-                            mainBackStack.removeLast()
+                            mainBackStact.removeLast()
                         }
                     ) {
                         Icon(
@@ -120,84 +92,6 @@ fun FoodDetailsScreen(
                         )
                     }
                 },
-                actions = {
-                    IconButton(
-                        onClick = {
-
-                            onClickSaved.value = !onClickSaved.value
-                            savingViewModel.saveDishes(
-                                dishName = SaveEntity(
-                                    dateModified = items?.dateModified.toString(),
-                                    idMeal = items?.idMeal.toString(),
-                                    strArea = items?.strArea.toString(),
-                                    strCategory = items?.strCategory.toString(),
-                                    strCreativeCommonsConfirmed = items?.strCreativeCommonsConfirmed.toString(),
-                                    strImageSource = items?.strImageSource.toString(),
-                                    strIngredient1 = items?.strIngredient1.toString(),
-                                    strIngredient10 = items?.strIngredient10.toString(),
-                                    strIngredient11 = items?.strIngredient11.toString(),
-                                    strIngredient12 = items?.strIngredient12.toString(),
-                                    strIngredient13 = items?.strIngredient13.toString(),
-                                    strIngredient14 = items?.strIngredient14.toString(),
-                                    strIngredient15 = items?.strIngredient15.toString(),
-                                    strIngredient16 = items?.strIngredient16.toString(),
-                                    strIngredient17 = items?.strIngredient17.toString(),
-                                    strIngredient18 = items?.strIngredient18.toString(),
-                                    strIngredient19 = items?.strIngredient19.toString(),
-                                    strIngredient2 = items?.strIngredient2.toString(),
-                                    strIngredient20 = items?.strIngredient20.toString(),
-                                    strIngredient3 = items?.strIngredient3.toString(),
-                                    strIngredient4 = items?.strIngredient4.toString(),
-                                    strIngredient5 = items?.strIngredient5.toString(),
-                                    strIngredient6 = items?.strIngredient6.toString(),
-                                    strIngredient7 = items?.strIngredient7.toString(),
-                                    strIngredient8 = items?.strIngredient8.toString(),
-                                    strIngredient9 = items?.strIngredient9.toString(),
-                                    strInstructions = items?.strInstructions.toString(),
-                                    strMeal = items?.strMeal.toString(),
-                                    strMealAlternate = items?.strMealAlternate.toString(),
-                                    strMealThumb = items?.strMealThumb.toString(),
-                                    strMeasure1 = items?.strMeasure1.toString(),
-                                    strMeasure2 = items?.strMeasure2.toString(),
-                                    strMeasure3 = items?.strMeasure3.toString(),
-                                    strMeasure4 = items?.strMeasure4.toString(),
-                                    strMeasure5 = items?.strMeasure5.toString(),
-                                    strMeasure6 = items?.strMeasure6.toString(),
-                                    strMeasure7 = items?.strMeasure7.toString(),
-                                    strMeasure8 = items?.strMeasure8.toString(),
-                                    strMeasure9 = items?.strMeasure9.toString(),
-                                    strMeasure10 = items?.strMeasure10.toString(),
-                                    strMeasure11 = items?.strMeasure11.toString(),
-                                    strMeasure12 = items?.strMeasure12.toString(),
-                                    strMeasure13 = items?.strMeasure13.toString(),
-                                    strMeasure14 = items?.strMeasure14.toString(),
-                                    strMeasure15 = items?.strMeasure15.toString(),
-                                    strMeasure16 = items?.strMeasure16.toString(),
-                                    strMeasure17 = items?.strMeasure17.toString(),
-                                    strMeasure18 = items?.strMeasure18.toString(),
-                                    strMeasure19 = items?.strMeasure19.toString(),
-                                    strMeasure20 = items?.strMeasure20.toString(),
-                                    strSource = items?.strSource.toString(),
-                                    strTags = items?.strTags.toString(),
-                                    strYoutube = items?.strYoutube.toString()
-                                )
-                            )
-                        }
-                    ) {
-                        Icon(
-                            painter = if (!onClickSaved.value) painterResource(R.drawable.save_per_details_screen) else painterResource(
-                                R.drawable.saved_filled_
-                            ),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(24.dp)
-                        )
-                    }
-
-                    if (onClickSaved.value) {
-                        Toast.makeText(context, "Saved Sucessfully", Toast.LENGTH_SHORT).show()
-                    }
-                }
             )
         }
 
@@ -212,7 +106,7 @@ fun FoodDetailsScreen(
         ) {
             item {
                 AsyncImage(
-                    model = items?.strMealThumb.toString(),
+                    model = entity.strMealThumb.toString(),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -225,7 +119,7 @@ fun FoodDetailsScreen(
 
             item {
                 Text(
-                    text = items?.strMeal.toString(),
+                    text = entity.strMeal.toString(),
                     modifier = Modifier
                         .padding(14.dp),
                     fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
@@ -249,26 +143,26 @@ fun FoodDetailsScreen(
 
 
                 Ingredient(
-                    ingridient1 = items?.strIngredient1.toString(),
-                    ingridient2 = items?.strIngredient2.toString(),
-                    ingridient3 = items?.strIngredient3.toString(),
-                    ingridient4 = items?.strIngredient4.toString(),
-                    ingridient5 = items?.strIngredient5.toString(),
-                    ingridient6 = items?.strIngredient6.toString(),
-                    ingridient7 = items?.strIngredient7.toString(),
-                    ingridient8 = items?.strIngredient8.toString(),
-                    ingridient9 = items?.strIngredient9.toString(),
-                    ingridient10 = items?.strIngredient10.toString(),
-                    ingridient11 = items?.strIngredient11.toString(),
-                    ingridient12 = items?.strIngredient12.toString(),
-                    ingridient13 = items?.strIngredient13.toString(),
-                    ingridient14 = items?.strIngredient14.toString(),
-                    ingridient15 = items?.strIngredient15.toString(),
-                    ingridient16 = items?.strIngredient16.toString(),
-                    ingridient17 = items?.strIngredient17.toString(),
-                    ingridient18 = items?.strIngredient18.toString(),
-                    ingridient19 = items?.strIngredient19.toString(),
-                    ingridient20 = items?.strIngredient20.toString()
+                    ingridient1 = entity.strIngredient1.toString(),
+                    ingridient2 = entity.strIngredient2.toString(),
+                    ingridient3 = entity.strIngredient3.toString(),
+                    ingridient4 = entity.strIngredient4.toString(),
+                    ingridient5 = entity.strIngredient5.toString(),
+                    ingridient6 = entity.strIngredient6.toString(),
+                    ingridient7 = entity.strIngredient7.toString(),
+                    ingridient8 = entity.strIngredient8.toString(),
+                    ingridient9 = entity.strIngredient9.toString(),
+                    ingridient10 = entity.strIngredient10.toString(),
+                    ingridient11 = entity.strIngredient11.toString(),
+                    ingridient12 = entity.strIngredient12.toString(),
+                    ingridient13 = entity.strIngredient13.toString(),
+                    ingridient14 = entity.strIngredient14.toString(),
+                    ingridient15 = entity.strIngredient15.toString(),
+                    ingridient16 = entity.strIngredient16.toString(),
+                    ingridient17 = entity.strIngredient17.toString(),
+                    ingridient18 = entity.strIngredient18.toString(),
+                    ingridient19 = entity.strIngredient19.toString(),
+                    ingridient20 = entity.strIngredient20.toString()
                 )
                 Spacer(Modifier.padding(3.dp))
             }
@@ -287,46 +181,46 @@ fun FoodDetailsScreen(
 
 
                 Measures(
-                    measures1 = items?.strMeasure1.toString(),
-                    measures2 = items?.strMeasure2.toString(),
-                    measures3 = items?.strMeasure3.toString(),
-                    measures4 = items?.strMeasure4.toString(),
-                    measures5 = items?.strMeasure5.toString(),
-                    measures6 = items?.strMeasure6.toString(),
-                    measures7 = items?.strMeasure7.toString(),
-                    measures8 = items?.strMeasure8.toString(),
-                    measures9 = items?.strMeasure9.toString(),
-                    measures10 = items?.strMeasure10.toString(),
-                    measures11 = items?.strMeasure11.toString(),
-                    measures12 = items?.strMeasure12.toString(),
-                    measures13 = items?.strMeasure13.toString(),
-                    measures14 = items?.strMeasure14.toString(),
-                    measures15 = items?.strMeasure15.toString(),
-                    measures16 = items?.strMeasure16.toString(),
-                    measures17 = items?.strMeasure17.toString(),
-                    measures18 = items?.strMeasure18.toString(),
-                    measures19 = items?.strMeasure19.toString(),
-                    measures20 = items?.strMeasure20.toString(),
-                    ingridient1 = items?.strIngredient1.toString(),
-                    ingridient2 = items?.strIngredient2.toString(),
-                    ingridient3 = items?.strIngredient3.toString(),
-                    ingridient4 = items?.strIngredient4.toString(),
-                    ingridient5 = items?.strIngredient5.toString(),
-                    ingridient6 = items?.strIngredient6.toString(),
-                    ingridient7 = items?.strIngredient7.toString(),
-                    ingridient8 = items?.strIngredient8.toString(),
-                    ingridient9 = items?.strIngredient9.toString(),
-                    ingridient10 = items?.strIngredient10.toString(),
-                    ingridient11 = items?.strIngredient11.toString(),
-                    ingridient12 = items?.strIngredient12.toString(),
-                    ingridient13 = items?.strIngredient13.toString(),
-                    ingridient14 = items?.strIngredient14.toString(),
-                    ingridient15 = items?.strIngredient15.toString(),
-                    ingridient16 = items?.strIngredient16.toString(),
-                    ingridient17 = items?.strIngredient17.toString(),
-                    ingridient18 = items?.strIngredient18.toString(),
-                    ingridient19 = items?.strIngredient19.toString(),
-                    ingridient20 = items?.strIngredient20.toString()
+                    measures1 = entity.strMeasure1.toString(),
+                    measures2 = entity.strMeasure2.toString(),
+                    measures3 = entity.strMeasure3.toString(),
+                    measures4 = entity.strMeasure4.toString(),
+                    measures5 = entity.strMeasure5.toString(),
+                    measures6 = entity.strMeasure6.toString(),
+                    measures7 = entity.strMeasure7.toString(),
+                    measures8 = entity.strMeasure8.toString(),
+                    measures9 = entity.strMeasure9.toString(),
+                    measures10 =entity.strMeasure10.toString(),
+                    measures11 =entity.strMeasure11.toString(),
+                    measures12 =entity.strMeasure12.toString(),
+                    measures13 =entity.strMeasure13.toString(),
+                    measures14 =entity.strMeasure14.toString(),
+                    measures15 =entity.strMeasure15.toString(),
+                    measures16 =entity.strMeasure16.toString(),
+                    measures17 =entity.strMeasure17.toString(),
+                    measures18 =entity.strMeasure18.toString(),
+                    measures19 =entity.strMeasure19.toString(),
+                    measures20 =entity.strMeasure20.toString(),
+                    ingridient1 = entity.strIngredient1.toString(),
+                    ingridient2 = entity.strIngredient2.toString(),
+                    ingridient3 = entity.strIngredient3.toString(),
+                    ingridient4 = entity.strIngredient4.toString(),
+                    ingridient5 = entity.strIngredient5.toString(),
+                    ingridient6 = entity.strIngredient6.toString(),
+                    ingridient7 = entity.strIngredient7.toString(),
+                    ingridient8 = entity.strIngredient8.toString(),
+                    ingridient9 = entity.strIngredient9.toString(),
+                    ingridient10 = entity.strIngredient10.toString(),
+                    ingridient11 = entity.strIngredient11.toString(),
+                    ingridient12 = entity.strIngredient12.toString(),
+                    ingridient13 = entity.strIngredient13.toString(),
+                    ingridient14 = entity.strIngredient14.toString(),
+                    ingridient15 = entity.strIngredient15.toString(),
+                    ingridient16 = entity.strIngredient16.toString(),
+                    ingridient17 = entity.strIngredient17.toString(),
+                    ingridient18 = entity.strIngredient18.toString(),
+                    ingridient19 = entity.strIngredient19.toString(),
+                    ingridient20 = entity.strIngredient20.toString()
                 )
             }
 
@@ -342,7 +236,7 @@ fun FoodDetailsScreen(
                 )
 
                 Text(
-                    text = items?.strInstructions.toString(),
+                    text = entity.strInstructions.toString(),
                     modifier = Modifier
                         .padding(start = 16.dp, top = 3.dp, bottom = 3.dp, end = 16.dp),
                     fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
@@ -354,7 +248,7 @@ fun FoodDetailsScreen(
 
             item {
                 val sampleText = "Hello world"
-                items?.strMealAlternate.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
+                entity.strMealAlternate.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
                     Text(
                         text = "Meal Alternative",
                         modifier = Modifier
@@ -379,7 +273,7 @@ fun FoodDetailsScreen(
 
             item {
                 val sampleText = "Hello world"
-                items?.strYoutube.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
+                entity.strYoutube.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
                     Text(
                         text = "YouTube Tutorials",
                         modifier = Modifier
@@ -436,7 +330,7 @@ fun FoodDetailsScreen(
 
             item {
                 val sampleText = "Hello world"
-                items?.strTags.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
+                entity.strTags.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
                     Text(
                         text = "Tags #",
                         modifier = Modifier
@@ -460,7 +354,7 @@ fun FoodDetailsScreen(
             }
 
             item {
-                items?.strArea.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
+                entity.strArea.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
                     Text(
                         text = "Area",
                         modifier = Modifier
@@ -485,7 +379,7 @@ fun FoodDetailsScreen(
 
 
             item {
-                items?.strCategory.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
+                entity.strCategory.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
                     Text(
                         text = "Category",
                         modifier = Modifier
@@ -509,7 +403,7 @@ fun FoodDetailsScreen(
             }
 
             item {
-                items?.dateModified.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
+                entity.dateModified.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
                     Text(
                         text = "Date Modifier",
                         modifier = Modifier
@@ -534,7 +428,7 @@ fun FoodDetailsScreen(
 
             item {
                 val sampleText = "Hello world"
-                items?.strSource.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
+                entity.strSource.toString().takeIf { it.isNotBlank() && it != "null" }?.let {
                     Text(
                         text = "Source For Details",
                         modifier = Modifier

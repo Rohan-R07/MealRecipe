@@ -17,6 +17,7 @@ import com.example.recipemealapi.Screens.BottomNavScreens.ProfileScreen
 import com.example.recipemealapi.Screens.BottomNavScreens.SavedScreen
 import com.example.recipemealapi.Screens.BottomNavScreens.SearchScreen
 import com.example.recipemealapi.ViewModel.MealViewModel
+import com.example.recipemealapi.ViewModel.SavingViewModel
 
 @Composable
 fun BNavigation(
@@ -25,7 +26,8 @@ fun BNavigation(
     viewModel: MealViewModel,
     context: Context,
     mainBackStack: NavBackStack,
-    navIndext: MutableState<Int>
+    navIndext: MutableState<Int>,
+    savedViewModel: SavingViewModel
 ) {
 
     NavDisplay(
@@ -51,7 +53,7 @@ fun BNavigation(
                     navIndext
                 )
             }
-            entry(BottomNavRoutes.Saved) { SavedScreen() }
+            entry(BottomNavRoutes.Saved) { SavedScreen(savedViewModel,context,mainBackStack) }
             entry(BottomNavRoutes.Profile) { ProfileScreen() }
 
 

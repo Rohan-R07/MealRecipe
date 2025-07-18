@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.recipemealapi.R
-import com.example.recipemealapi.ui.theme.CDiscColor
 import com.example.recipemealapi.ui.theme.CTextColor
 import com.example.recipemealapi.ui.theme.CategoryScreen
 import com.example.recipemealapi.ui.theme.ViewRecipeColor
@@ -41,7 +40,7 @@ fun CategoryDetailsCard(
     title: String,
     discription: String,
     thumb: String = "https:\\/\\/www.themealdb.com\\/images\\/media\\/meals\\/020z181619788503.jpg",
-    onClick : () -> Unit
+    buttonOnClick : () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -97,7 +96,7 @@ fun CategoryDetailsCard(
 
             Button(
                 onClick = {
-                    onClick()
+                    buttonOnClick()
                 },
                 modifier = Modifier
                     .fillMaxWidth()

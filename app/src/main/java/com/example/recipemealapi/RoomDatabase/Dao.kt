@@ -18,6 +18,11 @@ interface Dao {
     @Query("SELECT * FROM SaveEntity ORDER BY id")
     fun getAllSavedDishes() : Flow<List<SaveEntity>>
 
+
+    @Query("SELECT * FROM SaveEntity WHERE id = :id")
+    fun getSavedDishById(id: Int): SaveEntity?
+
+
     @Query("DELETE FROM SaveEntity")
     suspend fun deleteAllSavedDishes()
 
