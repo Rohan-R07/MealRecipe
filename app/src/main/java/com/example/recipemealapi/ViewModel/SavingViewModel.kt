@@ -32,7 +32,7 @@ class SavingViewModel(applicatin: Application): AndroidViewModel(applicatin) {
         }
     }
 
-    fun deleteAllDishes(dishName: SaveEntity){
+    fun deleteAllDishes(){
         viewModelScope.launch {
             db.deleteAllSavedDishes()
         }

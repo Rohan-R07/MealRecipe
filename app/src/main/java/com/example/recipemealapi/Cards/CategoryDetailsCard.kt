@@ -1,5 +1,6 @@
 package com.example.recipemealapi.Cards
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -40,12 +42,20 @@ fun CategoryDetailsCard(
     title: String,
     discription: String,
     thumb: String = "https:\\/\\/www.themealdb.com\\/images\\/media\\/meals\\/020z181619788503.jpg",
-    buttonOnClick : () -> Unit
+    buttonOnClick : () -> Unit,
+    onLongPress: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier
             .padding(start =17.dp, end = 17.dp,)
             .height(340.dp)
+            .pointerInput(Unit){
+                detectTapGestures(
+                    onLongPress = {
+                        onLongPress.invoke()
+                    }
+                )
+            }
             .width(358.dp),
         colors = CardColors(
             containerColor = CategoryScreen,
@@ -114,28 +124,4 @@ fun CategoryDetailsCard(
     }
 
 
-}
-
-
-@Preview
-@Composable
-private fun DOIEW() {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-
-        items(10) {
-
-            CategoryDetailsCard(
-
-                title = "Lemon Herb Roasted Cff h hhh hht h h fff ffff fffhicken",
-                discription = "Tender chicknn hhh hhhh y5g gth gthgr vht en with a zesty lemon and herb marinade",
-
-            ){
-
-            }
-
-        }
-    }
 }

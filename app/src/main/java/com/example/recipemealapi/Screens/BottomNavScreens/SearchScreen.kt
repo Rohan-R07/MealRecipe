@@ -51,7 +51,6 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.recipemealapi.Cards.SearchCard
 import com.example.recipemealapi.NavRoutes.BottomNavRoutes
 import com.example.recipemealapi.NavRoutes.MRoutes
-import com.example.recipemealapi.PrefsUnits.SearchingRecentsPrefUitils
 import com.example.recipemealapi.R
 import com.example.recipemealapi.Utils.SearchTextField
 import com.example.recipemealapi.ViewModel.MealViewModel
@@ -69,16 +68,6 @@ fun SearchScreen(viewModel: MealViewModel, context: Context,mainBackStack: NavBa
         focusRequester.requestFocus()
     }
 
-    val preferenceDataStore = viewModel<SearchingRecentsPrefUitils>(
-        factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SearchingRecentsPrefUitils(context = context) as T
-            }
-        }
-
-    )
-
-    val couritineScope = rememberCoroutineScope()
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -120,8 +109,7 @@ fun SearchScreen(viewModel: MealViewModel, context: Context,mainBackStack: NavBa
 //                preferenceDataStore.putRecent(value.value)
 //            }
             SearchTextField(
-                textValue = value, modifier = Modifier.focusRequester(focusRequester)
-                ,
+                textValue = value, modifier = Modifier.focusRequester(focusRequester),
                 perLetterTyped = {
 
                     viewModel.searchDishUsingWord(value.value,context)

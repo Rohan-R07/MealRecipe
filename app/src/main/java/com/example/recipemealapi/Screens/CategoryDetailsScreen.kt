@@ -157,18 +157,20 @@ fun CategoryDetailsScreen(
                         CategoryDetailsCard(
                             title = details.strMeal,
                             discription = details.idMeal,
-                            thumb = details.strMealThumb
-                        ) {
-                            // TODO Detailed View of the corresponding dish
-                            mainBackStack.add(
-                                MRoutes.FoodDetailsScreen(
-                                    details.idMeal.toInt(),
-                                    details.strMeal.toString(),
-                                    discroption
+                            thumb = details.strMealThumb,
+                            onLongPress = {},
+                            buttonOnClick = {
+                                // TODO Detailed View of the corresponding dish
+                                mainBackStack.add(
+                                    MRoutes.FoodDetailsScreen(
+                                        details.idMeal.toInt(),
+                                        details.strMeal.toString(),
+                                        discroption
+                                    )
                                 )
-                            )
 
-                        }
+                            }
+                        )
                     }
                 }
             } else {
