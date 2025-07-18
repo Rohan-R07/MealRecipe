@@ -24,8 +24,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.res.painterResource
@@ -39,6 +44,7 @@ import com.example.recipemealapi.Cards.CategoryCard
 import com.example.recipemealapi.NavRoutes.BottomNavRoutes
 import com.example.recipemealapi.NavRoutes.MRoutes
 import com.example.recipemealapi.R
+import com.example.recipemealapi.Utils.InternetObserver
 import com.example.recipemealapi.Utils.ShimmerLoading
 import com.example.recipemealapi.ViewModel.MealViewModel
 import com.example.recipemealapi.ui.theme.CSearch
@@ -47,12 +53,23 @@ import com.example.recipemealapi.ui.theme.TopAppBarTitleColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, context: Context,mainBackStack: NavBackStack) {
-    val categoryLists = viewModel.category.collectAsState()
-
+fun CatalogScreen(
+    viewModel: MealViewModel,
+    bottomNavBackStack: NavBackStack,
+    context: Context,
+    mainBackStack: NavBackStack
+) {
     val isLoadings = viewModel.isLoadingCategoryS.collectAsState().value
 
 
+    lateinit var internetObserver: InternetObserver
+
+
+    // ✅ Internet is back: call API here
+    val cateLists = viewModel.category
+
+
+    val categoryLists = cateLists.collectAsState()
     val gridState = rememberLazyGridState()
     Scaffold(
         modifier = Modifier
@@ -75,7 +92,7 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                     actionIconContentColor = Gray
                 ),
 
-            )
+                )
         },
         containerColor = CategoryScreen,
     ) { innerPadding ->
@@ -100,72 +117,81 @@ fun CatalogScreen(viewModel: MealViewModel, bottomNavBackStack: NavBackStack, co
                 fontWeight = FontWeight.ExtraBold
             )
 
-            if (!isLoadings) {
-                LazyVerticalGrid(
-                contentPadding = innerPadding,
-                    modifier = Modifier
-                        .padding(horizontal = 15.dp)
-                        .fillMaxSize(),
-                    columns = GridCells.Fixed(2),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    verticalArrangement = Arrangement.spacedBy(13.dp),
-                    state = gridState,
-                    flingBehavior = rememberSnapFlingBehavior(gridState),
-                ) {
-                    items(10) {
-                        ShimmerLoading()
-                        ShimmerLoading(
-                            Modifier
-                                .height(20.dp)
-                                .width(
-                                    150.dp
-                                )
-                        )
-                        ShimmerLoading(
-                            Modifier
-                                .height(20.dp)
-                                .width(
-                                    150.dp
-                                )
-                        )
-                    }
-                }
-                }else{
 
-                Log.d("Boo",isLoadings.toString())
+                if (!isLoadings) {
+                    LazyVerticalGrid(
+                        contentPadding = innerPadding,
+                        modifier = Modifier
+                            .padding(horizontal = 15.dp)
+                            .fillMaxSize(),
+                        columns = GridCells.Fixed(2),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalArrangement = Arrangement.spacedBy(13.dp),
+                        state = gridState,
+                        flingBehavior = rememberSnapFlingBehavior(gridState),
+                    ) {
+
+                        items(10) {
+                            ShimmerLoading()
+                            ShimmerLoading(
+                                Modifier
+                                    .height(20.dp)
+                                    .width(
+                                        150.dp
+                                    )
+                            )
+                            ShimmerLoading(
+                                Modifier
+                                    .height(20.dp)
+                                    .width(
+                                        150.dp
+                                    )
+                            )
+                        }
+                    }
+                } else {
+
+                    Log.d("Boo", isLoadings.toString())
 //
 
 //            } else {
-                Spacer(
-                    Modifier
+                    Spacer(
+                        Modifier
 //                    .padding(innerPadding)
-                        .padding(12.dp)
-                )
-                LazyVerticalGrid(
+                            .padding(12.dp)
+                    )
+                    LazyVerticalGrid(
 //                contentPadding = innerPadding,
-                    modifier = Modifier
-                        .padding(horizontal = 15.dp)
-                        .fillMaxSize(),
-                    columns = GridCells.Fixed(2),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    verticalArrangement = Arrangement.spacedBy(13.dp),
-                    state = gridState,
-                    flingBehavior = rememberSnapFlingBehavior(gridState),
-                ) {
-                    // FOR TESTING PURPOSE
-                    items(categoryLists.value) { items ->
-                        CategoryCard(
-                            thumb = items.strCategoryThumb,
-                            context = context,
-                            text = items.strCategory,
-                            discription = items.strCategoryDescription
-                        ){
-                            mainBackStack.add(MRoutes.CategoryDetailsScreen(items.strCategory,items.strCategoryDescription))
-                            Toast.makeText(context,items.strCategory, Toast.LENGTH_SHORT).show()
+                        modifier = Modifier
+                            .padding(horizontal = 15.dp)
+                            .fillMaxSize(),
+                        columns = GridCells.Fixed(2),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalArrangement = Arrangement.spacedBy(13.dp),
+                        state = gridState,
+                        flingBehavior = rememberSnapFlingBehavior(gridState),
+                    ) {
+                        // FOR TESTING PURPOSE
+                        items(categoryLists.value) { items ->
+                            CategoryCard(
+                                thumb = items.strCategoryThumb,
+                                context = context,
+                                text = items.strCategory,
+                                discription = items.strCategoryDescription
+                            ) {
+                                mainBackStack.add(
+                                    MRoutes.CategoryDetailsScreen(
+                                        items.strCategory,
+                                        items.strCategoryDescription
+                                    )
+                                )
+                                Toast.makeText(context, items.strCategory, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
+

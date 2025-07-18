@@ -17,13 +17,13 @@ import com.example.recipemealapi.BottomNavigation.BNavigation
 import com.example.recipemealapi.BottomNavigation.CBotomNavigationBar
 import com.example.recipemealapi.NavRoutes.BottomNavRoutes
 import com.example.recipemealapi.ViewModel.MealViewModel
+import com.example.recipemealapi.ViewModel.SavingViewModel
 import com.example.recipemealapi.ui.theme.CategoryScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(mainBackStack: NavBackStack, viewModels: MealViewModel,context: Context) {
+fun MainScreen(mainBackStack: NavBackStack, viewModels: MealViewModel,context: Context,savedViewModel: SavingViewModel) {
     val bottomBackStack = rememberNavBackStack<BottomNavRoutes>(BottomNavRoutes.CatagoriesScreen)
-    val context = LocalContext.current
 
     val bottomNavIndext = remember { mutableIntStateOf(0) }
     Scaffold(
@@ -42,8 +42,8 @@ fun MainScreen(mainBackStack: NavBackStack, viewModels: MealViewModel,context: C
             context = context,
             viewModel = viewModels,
             mainBackStack = mainBackStack,
-            navIndext = bottomNavIndext
-
+            navIndext = bottomNavIndext,
+            savedViewModel = savedViewModel
         )
     }
 

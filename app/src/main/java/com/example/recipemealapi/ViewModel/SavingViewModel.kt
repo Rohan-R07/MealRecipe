@@ -1,9 +1,9 @@
 package com.example.recipemealapi.ViewModel
 
 import android.app.Application
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.recipemealapi.RoomDatabase.SaveApplication
 import com.example.recipemealapi.RoomDatabase.SaveEntity
 import kotlinx.coroutines.launch
@@ -13,7 +13,12 @@ class SavingViewModel(applicatin: Application): AndroidViewModel(applicatin) {
 
     private val db = (applicatin as SaveApplication).db.dao()
 
-    val user = db.getAllSavedDishes()
+    val getAllDishesList = db.getAllSavedDishes()
+
+//    fun alreadySavedDishes (id: Int) : SaveEntity?{
+//
+//     return db.getSavedDishById(id)
+//    }
 
     fun saveDishes(dishName: SaveEntity){
         viewModelScope.launch {
@@ -27,7 +32,7 @@ class SavingViewModel(applicatin: Application): AndroidViewModel(applicatin) {
         }
     }
 
-    fun deleteAllDishes(dishName: SaveEntity){
+    fun deleteAllDishes(){
         viewModelScope.launch {
             db.deleteAllSavedDishes()
         }

@@ -2,6 +2,7 @@ package com.example.recipemealapi.NavRoutes
 
 
 import androidx.navigation3.runtime.NavKey
+import com.example.recipemealapi.RoomDatabase.SaveEntity
 import kotlinx.serialization.Serializable
 
 sealed class MRoutes() : NavKey{
@@ -20,5 +21,10 @@ sealed class MRoutes() : NavKey{
     data class CategoryDetailsScreen(
         val dishName: String,
         val disc: String,
+    ): MRoutes()
+
+    @Serializable
+    data class SavedFoodDetails(
+        val entity: SaveEntity,
     ): MRoutes()
 }
