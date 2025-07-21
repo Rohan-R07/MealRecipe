@@ -6,6 +6,7 @@ Meal Recipe is a modern Android application built with **Jetpack Compose**, **Re
 
 ## ✨ Features
 
+
 ### 🧭 Category Browsing
 - Browse meals by categories like Chicken, Pork, Seafood, etc.
 - On clicking a category, the app fetches and shows meals under it.
@@ -43,7 +44,7 @@ Meal Recipe is a modern Android application built with **Jetpack Compose**, **Re
 - 🔌 [Retrofit](https://square.github.io/retrofit/)
 - 🗂️ [Room](https://developer.android.com/jetpack/androidx/releases/room)
 - 🧪 [ViewModel + StateFlow](https://developer.android.com/topic/libraries/architecture/viewmodel)
-- 🧑‍🎨 Google Stitch UI guidelines
+- 🧑‍🎨 [Google Stitch UI for UI](https://stitch.withgoogle.com/)
 
 ---
 
