@@ -65,8 +65,11 @@ Meal Recipe is a modern Android application built with **Jetpack Compose**, **Re
 ---
 
 # Clone the repository
+
+```bash
 git clone https://github.com/yourusername/meal-explorer.git
 
+```
 # Open in Android Studio
 # Run on an emulator or physical device
 
