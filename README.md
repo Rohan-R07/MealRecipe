@@ -1,5 +1,4 @@
 # 🍽️ Meal Recipe App
-
 Meal Recipe is a modern Android application built with **Jetpack Compose**, **Retrofit**, and **Room**. It helps users discover delicious meals by category (like Chicken, Pork, etc.), view full meal details, and save their favorite meals for offline access. It also includes a powerful search feature and a clean, Material 3-inspired UI.
 
 ---
